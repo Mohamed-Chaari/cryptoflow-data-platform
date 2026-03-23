@@ -1,4 +1,6 @@
-"""Prophet model training job with MLflow tracking."""
+"""Prophet model training job with MLflow tracking.
+Author: Mohamed Chaari
+"""
 import os
 import sys
 import pickle

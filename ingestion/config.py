@@ -1,4 +1,6 @@
-"""Configuration models for the Ingestion module."""
+"""Configuration models for the Ingestion module.
+Author: Mohamed Chaari
+"""
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 

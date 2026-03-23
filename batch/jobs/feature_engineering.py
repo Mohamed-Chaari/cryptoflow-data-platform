@@ -1,4 +1,6 @@
-"""Spark Batch job to compute technical features from processed data."""
+"""Spark Batch job to compute technical features from processed data.
+Author: Mohamed Chaari
+"""
 import sys
 from datetime import datetime, timedelta
 from pyspark.sql import SparkSession

@@ -1,4 +1,6 @@
-"""Daily DAG to orchestrate the ETL, Feature Engineering, and Model Training pipeline."""
+"""Daily DAG to orchestrate the ETL, Feature Engineering, and Model Training pipeline.
+Author: Mohamed Chaari
+"""
 import os
 from datetime import datetime, timedelta
 from airflow import DAG

@@ -1,4 +1,6 @@
-"""Spark Streaming job to process news sentiment and write to PostgreSQL."""
+"""Spark Streaming job to process news sentiment and write to PostgreSQL.
+Author: Mohamed Chaari
+"""
 import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, udf

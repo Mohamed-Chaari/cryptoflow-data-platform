@@ -1,4 +1,6 @@
-"""Base Kafka producer shared class."""
+"""Base Kafka producer shared class.
+Author: Mohamed Chaari
+"""
 import json
 from typing import Any, Dict
 from loguru import logger

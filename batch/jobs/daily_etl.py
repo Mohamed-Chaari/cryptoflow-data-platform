@@ -1,4 +1,6 @@
-"""Spark Batch job to clean and process raw Parquet files daily."""
+"""Spark Batch job to clean and process raw Parquet files daily.
+Author: Mohamed Chaari
+"""
 import os
 import sys
 from datetime import datetime, timedelta

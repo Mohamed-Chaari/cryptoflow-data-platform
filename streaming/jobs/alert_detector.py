@@ -1,4 +1,6 @@
-"""Spark Streaming job to detect price spikes > 3% and produce to Kafka."""
+"""Spark Streaming job to detect price spikes > 3% and produce to Kafka.
+Author: Mohamed Chaari
+"""
 import os
 import json
 from confluent_kafka import Producer
@@ -11,7 +13,7 @@ def create_spark_session() -> SparkSession:
     """Creates and returns a SparkSession with necessary packages."""
     return SparkSession.builder \
         .appName("AlertDetector") \
-        .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0") \
+        .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0") \
         .config("spark.executor.memory", "512m") \
         .config("spark.driver.memory", "512m") \
         .getOrCreate()
@@ -27,8 +29,41 @@ def get_schema() -> StructType:
         StructField("timestamp", TimestampType(), True)
     ])
 
+# PostgreSQL configuration
+POSTGRES_URL = f"jdbc:postgresql://postgres:5432/{os.environ.get('POSTGRES_DB', 'cryptoflow')}"
+POSTGRES_USER = os.environ.get("POSTGRES_USER", "cryptoflow")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "cryptoflow_secure_password")
+POSTGRES_DRIVER = "org.postgresql.Driver"
+
 def process_batch(df, epoch_id):
-    """Process batch of alerts and produce to Kafka topic 'alerts'."""
+    """Process batch of alerts and produce to Kafka topic 'alerts' and write to Postgres."""
+    # Write to Postgres first
+    df_to_postgres = df.withColumn(
+        "alert_type",
+        col("price_change_1h").cast("string") # placeholder, will replace with SQL expression or keep it simple
+    )
+    from pyspark.sql.functions import when
+    df_to_postgres = df.withColumn(
+        "alert_type",
+        when(col("price_change_1h") > 3, "PUMP").otherwise("DUMP")
+    ).withColumnRenamed("price_change_1h", "magnitude")
+
+    df_to_postgres = df_to_postgres.select("symbol", "alert_type", "magnitude", "timestamp")
+
+    try:
+        df_to_postgres.write \
+            .format("jdbc") \
+            .option("url", POSTGRES_URL) \
+            .option("dbtable", "alerts") \
+            .option("user", POSTGRES_USER) \
+            .option("password", POSTGRES_PASSWORD) \
+            .option("driver", POSTGRES_DRIVER) \
+            .mode("append") \
+            .save()
+    except Exception as e:
+        logger.error(f"Failed to write alerts to Postgres: {e}")
+
+    # Produce to Kafka
     alerts = df.collect()
     if not alerts:
         return

@@ -1,4 +1,6 @@
-"""CoinGecko API consumer to push crypto data to Kafka."""
+"""CoinGecko API consumer to push crypto data to Kafka.
+Author: Mohamed Chaari
+"""
 import time
 import requests
 from datetime import datetime, timezone

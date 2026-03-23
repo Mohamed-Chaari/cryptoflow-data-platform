@@ -1,4 +1,6 @@
-"""NewsAPI consumer to push crypto news to Kafka."""
+"""NewsAPI consumer to push crypto news to Kafka.
+Author: Mohamed Chaari
+"""
 import time
 import requests
 from datetime import datetime, timezone

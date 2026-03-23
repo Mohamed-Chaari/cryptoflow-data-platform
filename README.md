@@ -76,3 +76,6 @@
 - **Live Monitor:** Real-time prices and alerts.
 - **Technical Indicators:** RSI, MACD, and Bollinger Bands.
 - **ML Predictions:** 24h forecast with confidence intervals.
+
+## Author
+**Mohamed Chaari** — Data Engineering Student, ISIMS Sfax
