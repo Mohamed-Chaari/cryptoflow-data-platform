@@ -1,4 +1,6 @@
-"""Spark Structured Streaming job to aggregate 1-minute OHLCV data from Kafka and write to Postgres and Parquet."""
+"""Spark Structured Streaming job to aggregate 1-minute OHLCV data from Kafka and write to Postgres and Parquet.
+Author: Mohamed Chaari
+"""
 import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, window, first, max, min, last, avg

@@ -1,4 +1,6 @@
-"""Data Quality DAG to check nulls, schema drift, and freshness periodically."""
+"""Data Quality DAG to check nulls, schema drift, and freshness periodically.
+Author: Mohamed Chaari
+"""
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator

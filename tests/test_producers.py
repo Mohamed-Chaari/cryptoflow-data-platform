@@ -1,3 +1,6 @@
+"""
+Author: Mohamed Chaari
+"""
 import pytest
 import json
 from unittest.mock import MagicMock, patch

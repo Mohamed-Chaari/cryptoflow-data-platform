@@ -1,4 +1,6 @@
-"""Streamlit dashboard for CryptoFlow with 4 pages and a news sentiment sidebar."""
+"""Streamlit dashboard for CryptoFlow with 4 pages and a news sentiment sidebar.
+Author: Mohamed Chaari
+"""
 import os
 import sys
 import glob
@@ -85,8 +87,9 @@ def page_live_monitor():
     """Page 1: Live Monitor - Auto-refreshing real-time data."""
     st.title("📈 Live Crypto Monitor")
 
-    # Auto-refresh using Streamlit st_autorefresh component (simulated by rerun button for simplicity without extra dependency)
-    # To truly auto-refresh without clicking, we can use a meta tag or standard st.empty
+    # Auto-refresh using Streamlit's st_autorefresh component or custom JS
+    # Native way using st.rerun loop
+    import time
 
     col1, col2 = st.columns([3, 1])
 
@@ -181,6 +184,10 @@ def page_live_monitor():
                 """, unsafe_allow_html=True)
         else:
             st.info("No active alerts.")
+
+    # Auto-refresh logic
+    time.sleep(15)
+    st.rerun()
 
 def page_historical():
     """Page 2: Historical Analysis - Querying processed Parquet files."""
@@ -435,6 +442,10 @@ def main():
         page_technical()
     elif page == "ML Predictions":
         page_ml_predictions()
+
+    # Footer
+    st.markdown("---")
+    st.markdown("<p style='text-align: center; color: gray;'>Built by Mohamed Chaari</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
